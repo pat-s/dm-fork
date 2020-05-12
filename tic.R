@@ -1,6 +1,7 @@
 if (ci_get_env("MODE") == "db-tests") {
   get_stage("install") %>%
-    add_step(step_install_cran("devtools"))
+    add_step(step_install_cran("devtools")) %>%
+    add_step(step_install_github("pat-s/cynkratemplate@feature/pat"))
 }
 
 if (ci_has_env("TIC_DEV_VERSIONS")) {
