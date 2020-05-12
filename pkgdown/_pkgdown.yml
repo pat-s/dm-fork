@@ -1,8 +1,8 @@
 url: https://krlmlr.github.io/dm
 
 template:
-  assets:
-  - pkgdown/assets
+  package: cynkratemplate
+  default_assets: false
 
 reference:
 - title: Creation and basic functionality
