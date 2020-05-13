@@ -1,7 +1,6 @@
 if (ci_get_env("MODE") == "db-tests") {
   get_stage("install") %>%
-    add_step(step_install_cran("devtools")) %>%
-    add_step(step_install_github("pat-s/cynkratemplate@feature/pat"))
+    add_step(step_install_cran("devtools"))
 }
 
 if (ci_has_env("TIC_DEV_VERSIONS")) {
@@ -61,6 +60,8 @@ if (ci_has_env("TIC_ONLY_TESTS")) {
   }
  }
 } else if (ci_has_env("TIC_BUILD_PKGDOWN")) {
+  get_stage("install") %>%
+    add_step(step_install_github("pat-s/cynkratemplate@feature/pat"))
   do_pkgdown()
 } else {
   get_stage("before_script") %>%
