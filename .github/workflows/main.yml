@@ -25,7 +25,8 @@ jobs:
           #- { os: macOS-latest, r: "release", pkgdown: "true" }
           #- { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true, id: "dev versions"}
-          - { os: macOS-latest,  r: "release", TIC_ONLY_TESTS:   true, id: "only tests"}
+          #- { os: macOS-latest,  r: "release", TIC_ONLY_TESTS:   true, id: "only tests"}
+          - { os: macOS-latest,  r: "release", pkgdown:   "true", id: "pkgdown"}
 
           # [Custom env var matrix]
           #- { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true }
@@ -175,9 +176,9 @@ jobs:
 
       - name: "[Custom block] Prepare MySQL"
         run: |
-          mysql --host 127.0.0.1 --port 8888 -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -uroot
-          mysql --host 127.0.0.1 --port 8888 -e "CREATE USER '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot || true
-          mysql --host 127.0.0.1 --port 8888 -e "GRANT ALL PRIVILEGES ON test.* TO '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot
+          mysql --host 127.0.0.1 -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -uroot
+          mysql --host 127.0.0.1 -e "CREATE USER '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot || true
+          mysql --host 127.0.0.1 -e "GRANT ALL PRIVILEGES ON test.* TO '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
