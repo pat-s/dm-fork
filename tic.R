@@ -61,7 +61,7 @@ if (ci_has_env("TIC_ONLY_TESTS")) {
  }
 } else if (ci_has_env("TIC_BUILD_PKGDOWN")) {
   get_stage("install") %>%
-    add_step(step_install_github("pat-s/cynkratemplate@feature/pat"))
+    add_step(step_install_github("cynkra/cynkratemplate"))
   do_pkgdown()
 } else {
   get_stage("before_script") %>%
