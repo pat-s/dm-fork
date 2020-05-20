@@ -1,5 +1,5 @@
 ## tic GitHub Actions template: custom-deploy
-## revision date: 2020-05-09
+## revision date: 2020-05-20
 on:
   push:
   pull_request:
@@ -14,30 +14,37 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
+    # [Custom matrix name]
     name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.id }})
 
-    strategy:
       fail-fast: false
       matrix:
         config:
+          # Custom configs
           # [Custom matrix env var]
-          - { os: macOS-latest, r: "devel", TIC_ONLY_TESTS: true, TIC_DEV_VERSIONS: true,  id: "TIC_ONLY_TESTS & TIC_DEV_VERSIONS" }
+          - { os: ubuntu-latest, r: 3.4, id: "default" }
           # [Custom matrix env var]
-          - { os: macOS-latest, r: "devel" }
+          - { os: ubuntu-latest, r: 3.5, id: "default" }
           # [Custom matrix env var]
-          - { os: macOS-latest, r: "release", pkgdown: "true" }
-          # [Custom matrix env var]
-          - { os: ubuntu-latest, r: "release", TIC_ONLY_STYLER: true, id: "TIC_ONLY_STYLER" }
+          - { os: ubuntu-latest, r: 3.6, id: "default" }
           # [Custom matrix env var]
           - { os: ubuntu-latest, r: "release", MODE: "db-tests", id: "db-tests" }
           # [Custom matrix env var]
-          - { os: ubuntu-latest, r: 3.6 }
+          - { os: ubuntu-latest, r: "release", TIC_ONLY_STYLER: true, id: "TIC_ONLY_STYLER" }
           # [Custom matrix env var]
-          - { os: ubuntu-latest, r: 3.5 }
+          - { os: macOS-latest, r: "release", pkgdown: "true", id: "pkgdown"}
           # [Custom matrix env var]
-          - { os: ubuntu-latest, r: 3.4 }
+          - { os: macOS-latest, r: "devel", id: "default" }
+          # [Custom matrix env var]
+          - { os: macOS-latest, r: "devel", TIC_ONLY_TESTS: true, TIC_DEV_VERSIONS: true,  id: "TIC_ONLY_TESTS & TIC_DEV_VERSIONS" }
 
     env:
+      # [Custom env var]
+      _R_CHECK_PACKAGE_DEPENDS_IGNORE_MISSING_ENHANCES: true
+      # [Custom env var]
+      _R_CHECK_SYSTEM_CLOCK_: false
+      # [Custom env var]
+      _R_CHECK_FORCE_SUGGESTS_: false
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
@@ -55,16 +62,10 @@ jobs:
       # capitalized term. This also might need to be done in tic.R
       BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
       # macOS >= 10.15.4 linking
-      SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.SDK
-      # [Custom env var]
-      _R_CHECK_FORCE_SUGGESTS_: false
-      # [Custom env var]
-      _R_CHECK_SYSTEM_CLOCK_: false
-      # [Custom env var]
-      _R_CHECK_PACKAGE_DEPENDS_IGNORE_MISSING_ENHANCES: true
+      SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.1.1
 
       - uses: r-lib/actions/setup-r@master
         with:
@@ -75,8 +76,8 @@ jobs:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      # - uses: r-lib/actions/setup-tinytex@v1
-      #   if: runner.os != 'Windows'
+      - uses: r-lib/actions/setup-tinytex@v1
+        if: runner.os != 'Windows'
 
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -96,7 +97,7 @@ jobs:
 
       - name: "[Cache] Cache R packages"
         if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v1.1.4
+        uses: pat-s/always-upload-cache@v1.2.0
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
@@ -104,7 +105,7 @@ jobs:
 
       - name: "[Cache] Cache ccache"
         if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v1.1.4
+        uses: pat-s/always-upload-cache@v1.2.0
         with:
           path: ${{ env.CCACHE_DIR}}
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-ccache-${{steps.datew.outputs.datew}}
@@ -153,7 +154,7 @@ jobs:
         run: | 
           sudo apt install postgresql postgresql-contrib
           sudo /etc/init.d/mysql start
-          
+
       - name: "[Custom block] [macOS] Install MySQL & Postgresql"
         if: runner.os == 'macOS'
         run: | 
@@ -169,7 +170,7 @@ jobs:
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
         run: Rscript -e "remotes::install_github('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
-      # macOS devel needs its own stage because we need to work with an options to suppress the usage of binaries
+      # macOS devel needs its own stage because we need to work with an option to suppress the usage of binaries
       - name: "[Stage] Prepare & Install (macOS-devel)"
         if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'devel'
         run: |
