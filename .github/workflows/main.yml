@@ -176,7 +176,7 @@ jobs:
 
       - name: "[Custom block] Prepare MySQL"
         run: |
-          mysql -h 127.0.0.1  -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -u root
+          #mysql -h 127.0.0.1  -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -u root
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
