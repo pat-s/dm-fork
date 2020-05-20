@@ -176,9 +176,9 @@ jobs:
 
       - name: "[Custom block] Prepare MySQL"
         run: |
-          mysql -h 127.0.0.1  -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -uroot
-          mysql -h 127.0.0.1 -e "CREATE USER '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot || true
-          mysql -h 127.0.0.1 -e "GRANT ALL PRIVILEGES ON test.* TO '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot
+          mysql -h 127.0.0.1  -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -u root -prootpass
+          mysql -h 127.0.0.1 -e "CREATE USER '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" - uroot -prootpass || true
+          mysql -h 127.0.0.1 -e "GRANT ALL PRIVILEGES ON test.* TO '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -u root -prootpass
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
