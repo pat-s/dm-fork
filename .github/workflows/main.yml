@@ -79,8 +79,8 @@ jobs:
       # Linux: ~ 1 min
       # macOS: ~ 1 min 30s
       # Windows: never finishes
-      - uses: r-lib/actions/setup-tinytex@v1
-        if: runner.os != 'Windows'
+      # - uses: r-lib/actions/setup-tinytex@v1
+      #   if: runner.os != 'Windows'
 
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -163,10 +163,12 @@ jobs:
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
       - name: "[Custom block] [Linux] Install MYSQL"
+        if: runner.os == 'Linux'
         run: | 
           sudo apt install mysql-server
           
       - name: "[Custom block] [macOS] Install MYSQL"
+        if: runner.os == 'macOS'
         run: | 
           brew install mysql
 
