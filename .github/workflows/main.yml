@@ -14,7 +14,7 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.id }})
 
     strategy:
       fail-fast: false
@@ -24,8 +24,8 @@ jobs:
           #- { os: windows-latest, r: "release" }
           #- { os: macOS-latest, r: "release", pkgdown: "true" }
           #- { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-latest, r: "release" }
-          - { os: macOS-latest, r: "release" }
+          - { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true, id: "dev versions"}
+          - { os: macOS-latest,  r: "release", TIC_ONLY_TESTS:   true, id: "only tests"}
 
           # [Custom env var matrix]
           #- { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true }
@@ -162,19 +162,18 @@ jobs:
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
 
-      - name: "[Custom block] [Linux] Install MYSQL"
+      - name: "[Custom block] [Linux] Install MySQL"
         if: runner.os == 'Linux'
         run: | 
-          sudo apt install mysql-server
-          sudo systemctl start mysql
+          sudo /etc/init.d/mysql start
           
-      - name: "[Custom block] [macOS] Install MYSQL"
+      - name: "[Custom block] [macOS] Install MySQL"
         if: runner.os == 'macOS'
         run: | 
           brew install mysql
           mysql.server start
 
-      - name: "[Custom block] Prepare MYSQL"
+      - name: "[Custom block] Prepare MySQL"
         run: |
           mysql -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -uroot
           mysql -e "CREATE USER '"${USER}"'@'localhost'; FLUSH PRIVILEGES;" -uroot || true
