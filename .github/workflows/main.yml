@@ -25,6 +25,7 @@ jobs:
           #- { os: macOS-latest, r: "release", pkgdown: "true" }
           #- { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
+          - { os: macOS-latest, r: "release" }
 
           # [Custom env var matrix]
           #- { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true }
@@ -160,6 +161,14 @@ jobs:
         run: |
           Rscript -e "if (!requireNamespace('remotes')) install.packages('remotes', type = 'source')"
           Rscript -e "if (getRversion() < '3.2' && !requireNamespace('curl')) install.packages('curl', type = 'source')"
+
+      - name: "[Custom block] [Linux] Install MYSQL"
+        run: | 
+          sudo apt install mysql-server
+          
+      - name: "[Custom block] [macOS] Install MYSQL"
+        run: | 
+          brew install mysql
 
       - name: "[Custom block] Prepare MYSQL"
         run: |
