@@ -218,8 +218,8 @@ install.packages("dm")
 The latest development version of {dm} can be installed from GitHub.
 
 ```r
-# install.packages("remotes")
-remotes::install_github("krlmlr/dm")
+# install.packages("devtools")
+devtools::install_github("krlmlr/dm")
 ```
 
 
@@ -260,6 +260,19 @@ Articles in the [{rquery} package](https://github.com/WinVector/rquery) discuss 
 The [{tidygraph} package](https://github.com/thomasp85/tidygraph) stores a network as two related tables of `nodes` and `edges`, compatible with {dplyr} workflows.
 
 In object-oriented programming languages, [object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping) is a similar concept that attempts to map a set of related tables to a class hierarchy.
+
+
+
+---
+
+License: MIT © cynkra GmbH.
+
+Funded by:
+
+[![energie360°](man/figures/energie-72.png)](https://www.energie360.ch)
+<span style="padding-right:50px">
+</span>
+[![cynkra](man/figures/cynkra-72.png)](https://www.cynkra.com/)
 
 ---
 
