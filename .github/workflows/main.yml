@@ -151,7 +151,7 @@ jobs:
       - name: "[Custom block] [Linux] Install MySQL & Postgresql"
         if: runner.os == 'Linux'
         run: | 
-          sudo install postgresql postgresql-contrib
+          sudo apt install postgresql postgresql-contrib
           sudo /etc/init.d/mysql start
           
       - name: "[Custom block] [macOS] Install MySQL & Postgresql"
