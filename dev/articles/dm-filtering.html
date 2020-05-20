@@ -47,12 +47,32 @@
       </div>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-left">
 <li>
-  <a href="../articles/dm.html">Intro</a>
+  <a href="https://pat-s.github.io/dm/index.html">release</a>
 </li>
 <li>
+  <a href="https://pat-s.github.io/dm/dev/index.html">devel</a>
+</li>
+      </ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Intro
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/dm.html">Intro</a>
+    </li>
+    <li>
+      <a href="../reference/index.html">Reference</a>
+    </li>
+  </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -108,9 +128,9 @@
 <li>
   <a href="../news/index.html">News</a>
 </li>
-        <li>
-  <a href="https://github.com/krlmlr/dm">
-    <span class="fa fa-github fa-lg"></span>
+<li>
+  <a href="https://github.com/krlmlr/dm/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -378,29 +398,29 @@
   <span class="fu"><a href="../reference/dm.html">dm_get_tables</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu">map</span>(<span class="kw pkg">dbplyr</span><span class="kw ns">::</span><span class="no"><a href="https://dbplyr.tidyverse.org/reference/sql_build.html">sql_render</a></span>)
 <span class="co">#&gt; $flights</span>
-<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM (SELECT * FROM flights_2020_05_20_08_22_48_1 AS `LHS`</span>
+<span class="co">#&gt; &lt;SQL&gt; SELECT * FROM (SELECT * FROM flights_2020_05_20_12_45_28_1 AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
 <span class="co">#&gt;   SELECT 1 FROM (SELECT *</span>
-<span class="co">#&gt; FROM airlines_2020_05_20_08_22_48_2</span>
+<span class="co">#&gt; FROM airlines_2020_05_20_12_45_28_2</span>
 <span class="co">#&gt; WHERE (`name` = 'Delta Air Lines Inc.')) AS `RHS`</span>
 <span class="co">#&gt;   WHERE (`LHS`.`carrier` = `RHS`.`carrier`)</span>
 <span class="co">#&gt; )) AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
 <span class="co">#&gt;   SELECT 1 FROM (SELECT *</span>
-<span class="co">#&gt; FROM airports_2020_05_20_08_22_48_3</span>
+<span class="co">#&gt; FROM airports_2020_05_20_12_45_28_3</span>
 <span class="co">#&gt; WHERE (`name` != 'John F Kennedy Intl')) AS `RHS`</span>
 <span class="co">#&gt;   WHERE (`LHS`.`origin` = `RHS`.`faa`)</span>
 <span class="co">#&gt; )</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $airlines</span>
 <span class="co">#&gt; &lt;SQL&gt; SELECT * FROM (SELECT *</span>
-<span class="co">#&gt; FROM airlines_2020_05_20_08_22_48_2</span>
+<span class="co">#&gt; FROM airlines_2020_05_20_12_45_28_2</span>
 <span class="co">#&gt; WHERE (`name` = 'Delta Air Lines Inc.')) AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
-<span class="co">#&gt;   SELECT 1 FROM (SELECT * FROM flights_2020_05_20_08_22_48_1 AS `LHS`</span>
+<span class="co">#&gt;   SELECT 1 FROM (SELECT * FROM flights_2020_05_20_12_45_28_1 AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
 <span class="co">#&gt;   SELECT 1 FROM (SELECT *</span>
-<span class="co">#&gt; FROM airports_2020_05_20_08_22_48_3</span>
+<span class="co">#&gt; FROM airports_2020_05_20_12_45_28_3</span>
 <span class="co">#&gt; WHERE (`name` != 'John F Kennedy Intl')) AS `RHS`</span>
 <span class="co">#&gt;   WHERE (`LHS`.`origin` = `RHS`.`faa`)</span>
 <span class="co">#&gt; )) AS `RHS`</span>
@@ -409,13 +429,13 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $airports</span>
 <span class="co">#&gt; &lt;SQL&gt; SELECT * FROM (SELECT *</span>
-<span class="co">#&gt; FROM airports_2020_05_20_08_22_48_3</span>
+<span class="co">#&gt; FROM airports_2020_05_20_12_45_28_3</span>
 <span class="co">#&gt; WHERE (`name` != 'John F Kennedy Intl')) AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
-<span class="co">#&gt;   SELECT 1 FROM (SELECT * FROM flights_2020_05_20_08_22_48_1 AS `LHS`</span>
+<span class="co">#&gt;   SELECT 1 FROM (SELECT * FROM flights_2020_05_20_12_45_28_1 AS `LHS`</span>
 <span class="co">#&gt; WHERE EXISTS (</span>
 <span class="co">#&gt;   SELECT 1 FROM (SELECT *</span>
-<span class="co">#&gt; FROM airlines_2020_05_20_08_22_48_2</span>
+<span class="co">#&gt; FROM airlines_2020_05_20_12_45_28_2</span>
 <span class="co">#&gt; WHERE (`name` = 'Delta Air Lines Inc.')) AS `RHS`</span>
 <span class="co">#&gt;   WHERE (`LHS`.`carrier` = `RHS`.`carrier`)</span>
 <span class="co">#&gt; )) AS `RHS`</span>
