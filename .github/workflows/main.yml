@@ -27,18 +27,18 @@ jobs:
           - { os: ubuntu-latest, r: "release" }
 
           # [Custom env var matrix]
-          - { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true }
-          # [Custom env var matrix]
-          - { os: ubuntu-latest, r: 3.4,       TIC_DEV_VERSIONS: true }
-          # [Custom env var matrix]
-          - { os: ubuntu-latest, r: 3.5,       TIC_DEV_VERSIONS: true }
+          #- { os: ubuntu-latest, r: "release", TIC_DEV_VERSIONS: true }
+          ## [Custom env var matrix]
+          #- { os: ubuntu-latest, r: 3.4,       TIC_DEV_VERSIONS: true }
+          ## [Custom env var matrix]
+          #- { os: ubuntu-latest, r: 3.5,       TIC_DEV_VERSIONS: true }
 
-          # [Custom env var matrix]
-          - { os: ubuntu-latest, r: "release", TIC_ONLY_TESTS: true }
-          # [Custom env var matrix]
-          - { os: ubuntu-latest, r: "release", TIC_ONLY_STYLE: true }
-          # [Custom env var matrix]
-          - { os: ubuntu-latest, r: "release", MODE: "db-tests" }
+          ## [Custom env var matrix]
+          #- { os: ubuntu-latest, r: "release", TIC_ONLY_TESTS: true }
+          ## [Custom env var matrix]
+          #- { os: ubuntu-latest, r: "release", TIC_ONLY_STYLE: true }
+          ## [Custom env var matrix]
+          #- { os: ubuntu-latest, r: "release", MODE: "db-tests" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
