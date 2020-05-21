@@ -17,6 +17,7 @@ jobs:
     # [Custom matrix name]
     name: ${{ matrix.config.os }} (${{ matrix.config.r }}) (${{ matrix.config.id }})
 
+    strategy:
       fail-fast: false
       matrix:
         config:
