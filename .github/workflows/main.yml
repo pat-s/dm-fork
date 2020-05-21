@@ -160,9 +160,7 @@ jobs:
       - name: "[Custom block] [macOS] Install MySQL & Postgresql"
         if: runner.os == 'macOS'
         run: | 
-          brew install mysql postgresql
-          mysql.server start
-          brew services start postgresql
+          brew install mysql
 
       - name: "[Custom block] [macOS] Install v8"
         if: runner.os == 'macOS'
