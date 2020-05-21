@@ -164,9 +164,11 @@ jobs:
           mysql.server start
           brew services start postgresql
 
-      - name: "[Custom block] Prepare MySQL"
-        run: |
-          #mysql -h 127.0.0.1  -e "CREATE DATABASE IF NOT EXISTS test; ALTER DATABASE test CHARACTER SET 'utf8'; FLUSH PRIVILEGES;" -u root
+      - name: "[Custom block] [macOS] Install v8"
+        if: runner.os == 'macOS'
+        run: | 
+          # for DiagrammeRsvg
+          brew install v8
 
       - name: "[Stage] Install"
         if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
