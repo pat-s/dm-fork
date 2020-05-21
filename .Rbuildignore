@@ -17,3 +17,7 @@
 ^man/figures/logo\.png$
 ^CRAN-RELEASE$
 ^Makefile$
+^\.ccache$
+^\.github$
+^clang-.*
+^gfortran.*

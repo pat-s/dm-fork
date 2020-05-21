@@ -51,7 +51,7 @@ if (ci_has_env("TIC_ONLY_TESTS")) {
     add_code_step(styler::cache_info()) %>%
     add_code_step(styler::style_pkg())
 
-  if (ci_has_env("id_rsa")) {
+  if (ci_can_push()) {
     get_stage("deploy") %>%
       add_code_step(styler::cache_info()) %>%
       add_code_step(styler::style_pkg()) %>%
@@ -59,10 +59,6 @@ if (ci_has_env("TIC_ONLY_TESTS")) {
       add_step(step_push_deploy())
   }
  }
-} else if (ci_has_env("TIC_BUILD_PKGDOWN")) {
-  get_stage("install") %>%
-    add_step(step_install_github("cynkra/cynkratemplate"))
-  do_pkgdown()
 } else {
   get_stage("before_script") %>%
     add_code_step({
@@ -70,5 +66,9 @@ if (ci_has_env("TIC_ONLY_TESTS")) {
       print(sessioninfo::session_info())
     })
 
+  get_stage("install") %>%
+    add_step(step_install_github("cynkra/cynkratemplate"))
+
   do_package_checks(error_on = if (getRversion() >= "3.4") "note" else "warning")
+  do_pkgdown()
 }
