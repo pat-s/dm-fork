@@ -46,6 +46,12 @@ jobs:
       _R_CHECK_SYSTEM_CLOCK_: false
       # [Custom env var]
       _R_CHECK_PACKAGE_DEPENDS_IGNORE_MISSING_ENHANCES: true
+      # [Custom env var]
+      TIC_DEV_VERSIONS: ${{ matrix.config.TIC_DEV_VERSIONS }}
+      # [Custom env var]
+      TIC_ONLY_TESTS: ${{ matrix.config.TIC_ONLY_TESTS }}
+      # [Custom env var]
+      MODE: ${{ matrix.config.MODE }}
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       CRAN: ${{ matrix.config.cran }}
@@ -154,18 +160,18 @@ jobs:
 
       - name: "[Custom block] [Linux] Install MySQL & Postgresql"
         if: runner.os == 'Linux'
-        run: | 
+        run: |
           sudo apt install postgresql postgresql-contrib
           sudo /etc/init.d/mysql start
 
       - name: "[Custom block] [macOS] Install MySQL & Postgresql"
         if: runner.os == 'macOS'
-        run: | 
+        run: |
           brew install mysql
 
       - name: "[Custom block] [macOS] Install v8"
         if: runner.os == 'macOS'
-        run: | 
+        run: |
           # for DiagrammeRsvg
           brew install v8
 
