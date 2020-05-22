@@ -51,7 +51,7 @@ jobs:
       # [Custom env var]
       TIC_ONLY_TESTS: ${{ matrix.config.TIC_ONLY_TESTS }}
       # [Custom env var]
-      TIC_ONLY_STYLER: ${{ matrix.config.TIC_ONLY_TESTS }}
+      TIC_ONLY_STYLER: ${{ matrix.config.TIC_ONLY_STYLER }}
       # [Custom env var]
       MODE: ${{ matrix.config.MODE }}
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
