@@ -27,7 +27,7 @@ jobs:
           # [Custom matrix env var]
           - { os: macOS-latest, r: "devel", id: "default" }
           # [Custom matrix env var]
-          - { os: macOS-latest, r: "release", pkgdown: "true", id: "pkgdown"}
+          - { os: macOS-latest, r: "release", pkgdown: true, id: "pkgdown"}
           # [Custom matrix env var]
           - { os: ubuntu-latest, r: "release", TIC_ONLY_STYLER: true, id: "TIC_ONLY_STYLER" }
           # [Custom matrix env var]
@@ -69,7 +69,7 @@ jobs:
       RGL_USE_NULL: true
       # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
       # capitalized term. This also might need to be done in tic.R
-      BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
+      TIC_BUILD_PKGDOWN: ${{ matrix.config.pkgdown }}
       # macOS >= 10.15.4 linking
       SDKROOT: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
       # use GITHUB_TOKEN from GItHub to workaround rate limits in {remotes}
