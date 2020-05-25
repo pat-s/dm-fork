@@ -14,6 +14,7 @@ editor_options:
 
 ``````{r setup, include = FALSE}
 source("setup/setup.R")
+knitr::opts_knit$set(eval = FALSE)
 ``````
 
 ## Connecting to a database
